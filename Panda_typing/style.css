@@ -1,0 +1,709 @@
+/* =========================================
+   全体リセット＆基本スタイル
+   ========================================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+  background-color: #fbf5ee;
+  background-image: radial-gradient(#ead9c6 1.2px, transparent 1.2px);
+  background-size: 22px 22px;
+  color: #3b2818;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 16px;
+}
+
+.app-container {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  background-color: #ffffff;
+  border: 2px solid #e6d5c3;
+  border-radius: 22px;
+  padding: 32px 28px;
+  box-shadow: 0 12px 30px rgba(74, 53, 37, 0.09);
+}
+
+/* =========================================
+   ヘッダー（パン×パンダ）
+   ========================================= */
+.app-header {
+  text-align: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px dashed #ead8c5;
+}
+
+.panda-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background-color: #2f2a26;
+  color: #ffffff;
+  font-size: 1.5rem;
+  padding: 6px 16px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+  box-shadow: 0 4px 10px rgba(47, 42, 38, 0.15);
+}
+
+.app-title {
+  font-size: 2.3rem;
+  font-weight: 800;
+  color: #5c3a21;
+  letter-spacing: 0.08em;
+}
+
+.app-subtitle {
+  margin-top: 6px;
+  font-size: 0.95rem;
+  color: #7d5c43;
+}
+
+/* =========================================
+   画面切り替え制御
+   ========================================= */
+.screen {
+  display: none;
+  animation: fadeIn 0.25s ease;
+}
+
+.screen.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   フォーム・難易度選択・ボタン
+   ========================================= */
+.input-label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #4a3525;
+}
+
+.text-input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 1rem;
+  border: 2px solid #d5c0aa;
+  border-radius: 10px;
+  background-color: #fffdfa;
+  color: #3b2818;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.text-input:focus {
+  border-color: #d97706;
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15);
+}
+
+.difficulty-section {
+  margin-top: 18px;
+}
+
+.difficulty-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.diff-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 12px 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #4a3525;
+  background-color: #fdf7f0;
+  border: 2px solid #dec9b2;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.diff-btn:hover {
+  border-color: #d97706;
+  background-color: #fff6e8;
+}
+
+.diff-btn.active {
+  color: #ffffff;
+  background-color: #2f2a26;
+  border-color: #2f2a26;
+  box-shadow: 0 3px 0 #171412;
+}
+
+.diff-desc {
+  font-size: 0.78rem;
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 13px 24px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.12s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  width: 100%;
+  margin-top: 18px;
+  background-color: #d97706;
+  color: #ffffff;
+  box-shadow: 0 4px 0 #b45309;
+}
+
+.btn-primary:hover {
+  background-color: #c26804;
+}
+
+.btn-secondary {
+  background-color: #efe3d5;
+  color: #4a3525;
+}
+
+.btn-secondary:hover {
+  background-color: #e4d2be;
+}
+
+/* =========================================
+   ランキング表＆難易度タブ
+   ========================================= */
+.ranking-box {
+  margin-top: 24px;
+  background-color: #fdf9f4;
+  border: 1px solid #ead8c5;
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.ranking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.ranking-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #5c3a21;
+  margin-bottom: 0;
+}
+
+.ranking-tabs {
+  display: flex;
+  gap: 6px;
+}
+
+.ranking-tab {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #6f4e37;
+  background-color: #f3e7d8;
+  border: 1px solid #dec9b2;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ranking-tab:hover {
+  background-color: #ead7c1;
+}
+
+.ranking-tab.active {
+  color: #ffffff;
+  background-color: #2f2a26;
+  border-color: #2f2a26;
+}
+
+.ranking-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.ranking-table th,
+.ranking-table td {
+  padding: 10px 8px;
+  text-align: center;
+  border-bottom: 1px solid #ede0d1;
+}
+
+.ranking-table th {
+  background-color: #f5ebe0;
+  color: #4a3525;
+  font-weight: 700;
+}
+
+.ranking-table tr:last-child td {
+  border-bottom: none;
+}
+
+.empty-msg {
+  color: #8c735b;
+  padding: 16px 8px !important;
+}
+
+/* =========================================
+   SCR-02: ゲームプレイ画面
+   ========================================= */
+.status-bar {
+  display: flex;
+  justify-content: space-around;
+  gap: 12px;
+  background-color: #fdf6ec;
+  border: 1px solid #ebd7be;
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-bottom: 14px;
+}
+
+.status-item {
+  text-align: center;
+}
+
+.status-label {
+  display: block;
+  font-size: 0.85rem;
+  color: #7d5c43;
+  margin-bottom: 2px;
+}
+
+.status-value {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #d97706;
+}
+
+.status-diff {
+  font-size: 1.35rem;
+  line-height: 2.4rem;
+  color: #5c3a21;
+}
+
+/* パンダ店長応援バー */
+.panda-cheer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #f8f5f1;
+  border: 1px solid #e2d6c8;
+  border-radius: 999px;
+  padding: 8px 16px;
+  margin-bottom: 16px;
+}
+
+.panda-face {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.panda-speech {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #4a3525;
+}
+
+.bread-stage {
+  position: relative;
+  text-align: center;
+  background-color: #fffcf8;
+  border: 2px solid #e6d5c3;
+  border-radius: 16px;
+  padding: 34px 20px;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.bread-stage.miss-flash {
+  border-color: #dc2626;
+  background-color: #fef2f2;
+}
+
+.bread-icon {
+  font-size: 4.5rem;
+  line-height: 1.1;
+  margin-bottom: 10px;
+  transition: transform 0.2s ease;
+}
+
+.bread-icon.eaten-anim {
+  transform: scale(1.25) rotate(10deg);
+}
+
+/* =========================================
+   パンダ店長がパンを食べるアニメーション
+   ========================================= */
+.eat-anim-stage {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background-color: #fff7ed;
+  border: 2px solid #fdba74;
+  border-radius: 999px;
+  box-shadow: 0 6px 14px rgba(217, 119, 6, 0.18);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px) scale(0.85);
+}
+
+.eat-anim-stage.is-playing {
+  animation: eatStagePop 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.eat-anim-stage.is-playing .anim-panda {
+  display: inline-block;
+  font-size: 1.7rem;
+  animation: pandaMunch 0.65s ease-in-out;
+}
+
+.eat-anim-stage.is-playing .anim-bread {
+  display: inline-block;
+  font-size: 1.45rem;
+  animation: breadBite 0.65s ease-in-out forwards;
+}
+
+.eat-anim-stage.is-playing .anim-sparkle {
+  display: inline-block;
+  font-size: 1.1rem;
+  animation: sparkleSpin 0.65s ease-out;
+}
+
+@keyframes eatStagePop {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.8);
+  }
+  18% {
+    opacity: 1;
+    transform: translateY(0) scale(1.05);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.9);
+  }
+}
+
+@keyframes pandaMunch {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(-6px) rotate(-10deg) scale(1.15);
+  }
+  50% {
+    transform: translateY(2px) rotate(8deg) scale(1.05);
+  }
+  75% {
+    transform: translateY(-5px) rotate(-6deg) scale(1.12);
+  }
+}
+
+@keyframes breadBite {
+  0% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+  55% {
+    transform: translateX(-6px) scale(0.75);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateX(-14px) scale(0.2);
+    opacity: 0;
+  }
+}
+
+@keyframes sparkleSpin {
+  0% {
+    transform: scale(0.4) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.25) rotate(25deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.8) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+.eat-message {
+  min-height: 24px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #15803d;
+  margin-bottom: 6px;
+}
+
+.bread-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #3b2818;
+  margin-bottom: 10px;
+}
+
+.bread-romaji {
+  font-family: "Consolas", "Courier New", monospace;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.bread-romaji .typed {
+  color: #d97706;
+}
+
+.bread-romaji .current {
+  color: #3b2818;
+  background-color: #fde68a;
+  border-radius: 4px;
+  padding: 0 2px;
+}
+
+.bread-romaji .untyped {
+  color: #a89583;
+}
+
+.guide-text {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 0.88rem;
+  color: #8c735b;
+}
+
+/* =========================================
+   SCR-03: リザルト画面
+   ========================================= */
+.result-heading {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #5c3a21;
+  margin-bottom: 10px;
+}
+
+.result-player {
+  text-align: center;
+  font-size: 1rem;
+  color: #6f4e37;
+  margin-bottom: 14px;
+}
+
+.panda-rank-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background-color: #2f2a26;
+  color: #ffffff;
+  border-radius: 14px;
+  padding: 12px 18px;
+  margin-bottom: 14px;
+}
+
+.panda-rank-icon {
+  font-size: 1.8rem;
+}
+
+.panda-rank-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #fde68a;
+}
+
+.panda-rank-comment {
+  font-size: 0.88rem;
+  color: #f3ece4;
+  margin-top: 2px;
+}
+
+.result-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.stat-card {
+  background-color: #fdf6ec;
+  border: 1px solid #ebd7be;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #7d5c43;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #d97706;
+}
+
+.result-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.result-actions .btn {
+  flex: 1;
+  margin-top: 0;
+}
+
+@media (max-width: 520px) {
+  .app-container {
+    padding: 24px 18px;
+  }
+
+  .difficulty-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .bread-romaji {
+    font-size: 1.4rem;
+  }
+
+  .result-actions {
+    flex-direction: column;
+  }
+
+  .status-bar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  background-color: #fdf6ec;
+  border: 1px solid #ebd7be;
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-bottom: 14px;
+}
+
+.status-action {
+  display: flex;
+  align-items: center;
+}
+
+.btn-abort {
+  padding: 8px 14px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #7f1d1d;
+  background-color: #fee2e2;
+  border: 1px solid #fca5a5;
+  border-radius: 10px;
+}
+
+.btn-abort:hover {
+  background-color: #fecaca;
+}
+
+/* 3秒カウントダウンオーバーレイ（前面で分かりやすく表示） */
+.countdown-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: rgba(47, 42, 38, 0.88);
+  backdrop-filter: blur(2px);
+  border-radius: 14px;
+}
+
+.countdown-overlay.is-visible {
+  display: flex;
+}
+
+.countdown-number {
+  font-size: 4.8rem;
+  font-weight: 900;
+  color: #fde68a;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  line-height: 1.05;
+  animation: countdownPulse 0.45s ease;
+}
+
+.countdown-sub {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: #d97706;
+  padding: 5px 14px;
+  border-radius: 999px;
+}
+
+@keyframes countdownPulse {
+  0% {
+    transform: scale(0.65);
+    opacity: 0.3;
+  }
+  70% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+}

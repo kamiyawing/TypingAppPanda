@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>パン打 - タイピングゲーム</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-container">
+    <!-- 共通ヘッダー -->
+    <header class="app-header">
+      <div class="panda-badge" aria-hidden="true">🐼🥐</div>
+      <h1 class="app-title">パン打</h1>
+      <p class="app-subtitle">パンダ店長と一緒に、制限時間内にパンをたくさん食べよう！</p>
+    </header>
+
+    <!-- SCR-01: タイトル画面 -->
+    <section id="screen-title" class="screen active">
+      <div class="start-box">
+        <label for="username-input" class="input-label">ユーザー名（未入力でもOK）</label>
+        <input
+          type="text"
+          id="username-input"
+          class="text-input"
+          placeholder="例：パンダ好き"
+          maxlength="15"
+        />
+
+        <div class="difficulty-section">
+          <span class="input-label">難易度を選択</span>
+          <div class="difficulty-buttons" role="group" aria-label="難易度選択">
+            <button type="button" class="diff-btn" data-diff="easy">
+              かんたん<span class="diff-desc">7文字以下</span>
+            </button>
+            <button type="button" class="diff-btn active" data-diff="normal">
+              ふつう<span class="diff-desc">11文字以下</span>
+            </button>
+            <button type="button" class="diff-btn" data-diff="hard">
+              むずかしい<span class="diff-desc">12文字以上</span>
+            </button>
+          </div>
+        </div>
+
+        <button type="button" id="start-btn" class="btn btn-primary">
+          🐼 パンを食べ始める！
+        </button>
+      </div>
+
+      <div class="ranking-box">
+        <div class="ranking-header">
+          <h2 class="ranking-title">🏆 ランキング TOP5</h2>
+          <div class="ranking-tabs" role="tablist" aria-label="ランキング難易度切替">
+            <button type="button" class="ranking-tab" data-rank-diff="easy">かんたん</button>
+            <button type="button" class="ranking-tab active" data-rank-diff="normal">ふつう</button>
+            <button type="button" class="ranking-tab" data-rank-diff="hard">むずかしい</button>
+          </div>
+        </div>
+        <table class="ranking-table">
+          <thead>
+            <tr>
+              <th>順位</th>
+              <th>名前</th>
+              <th>食べた数</th>
+              <th>正確率</th>
+            </tr>
+          </thead>
+          <tbody id="title-ranking-body">
+            <tr>
+              <td colspan="4" class="empty-msg">まだ記録がありません</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="screen-countdown" class="screen">
+      <div class="countdown-screen-box">
+        <div class="countdown-panda" aria-hidden="true">🐼🥐</div>
+        <p class="countdown-lead">まもなくパンを食べるよ！指をホームポジションに準備しよう</p>
+        <div id="countdown-number" class="countdown-big-number">3</div>
+        <button type="button" id="countdown-abort-btn" class="btn btn-abort">中断する</button>
+      </div>
+    </section>
+    
+    <!-- SCR-02: ゲームプレイ画面 -->
+    <section id="screen-game" class="screen">
+      <div class="status-bar">
+        <div class="status-item">
+          <span class="status-label">難易度</span>
+          <span id="current-difficulty-label" class="status-value status-diff">ふつう</span>
+        </div>
+        <div class="status-item">
+          <span class="status-label">残り時間</span>
+          <span id="time-left" class="status-value">30</span>秒
+        </div>
+        <div class="status-item">
+          <span class="status-label">食べたパン</span>
+          <span id="eaten-count" class="status-value">0</span>個
+        </div>
+        <div class="status-item status-action">
+          <button type="button" id="abort-btn" class="btn btn-abort">中断する</button>
+        </div>
+      </div>
+
+      <div class="panda-cheer-bar">
+        <span id="panda-face" class="panda-face" aria-hidden="true">🐼</span>
+        <span id="panda-speech" class="panda-speech">どんどん打ち込んでモグモグしよう！</span>
+      </div>
+
+      <div class="bread-stage">
+        
+        <!-- パンを食べたときのアニメーション演出 -->
+        <div id="eat-anim-stage" class="eat-anim-stage" aria-hidden="true">
+          <span id="anim-panda" class="anim-panda">🐼</span>
+          <span id="anim-bread" class="anim-bread">🍞</span>
+          <span class="anim-sparkle">✨</span>
+        </div>
+
+        <div id="bread-icon" class="bread-icon" aria-hidden="true">🍞</div>
+        <div id="eat-message" class="eat-message"></div>
+        <div id="bread-name" class="bread-name">あんぱん</div>
+        <div id="bread-romaji" class="bread-romaji">
+          <span class="typed"></span><span class="current">a</span><span class="untyped">npan</span>
+        </div>
+      </div>
+
+      <p class="guide-text">キーボードを直接押して入力してください（半角英字）</p>
+    </section>
+
+    <!-- SCR-03: リザルト画面 -->
+    <section id="screen-result" class="screen">
+      <h2 class="result-heading">🐼 タイムアップ！</h2>
+
+      <div class="result-summary">
+        <p class="result-player">
+          プレイヤー：<span id="result-username">ゲスト</span>（難易度：<span id="result-difficulty">ふつう</span>）
+        </p>
+        <div class="panda-rank-banner">
+          <span class="panda-rank-icon" aria-hidden="true">🐼🎉</span>
+          <div>
+            <div id="panda-rank-title" class="panda-rank-title">見習いパンダ</div>
+            <div id="panda-rank-comment" class="panda-rank-comment">おいしく食べられたね！</div>
+          </div>
+        </div>
+        <div class="result-stats">
+          <div class="stat-card">
+            <div class="stat-label">食べたパン</div>
+            <div class="stat-value"><span id="result-eaten">0</span>個</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">正確率</div>
+            <div class="stat-value"><span id="result-accuracy">0.0</span>%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ranking-box">
+        <h3 id="result-ranking-title" class="ranking-title">🏆 ランキング TOP5（ふつう）</h3>
+        <table class="ranking-table">
+          <thead>
+            <tr>
+              <th>順位</th>
+              <th>名前</th>
+              <th>食べた数</th>
+              <th>正確率</th>
+            </tr>
+          </thead>
+          <tbody id="result-ranking-body"></tbody>
+        </table>
+      </div>
+
+      <div class="result-actions">
+        <button type="button" id="retry-btn" class="btn btn-primary">🐼 もう一度食べる</button>
+        <button type="button" id="back-title-btn" class="btn btn-secondary">タイトルへ戻る</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
